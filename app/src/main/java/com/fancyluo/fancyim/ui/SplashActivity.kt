@@ -1,7 +1,6 @@
 package com.fancyluo.fancyim.ui
 
 import android.os.Handler
-import com.fancyluo.fancyim.MainActivity
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.contract.SplashContract
@@ -15,7 +14,7 @@ import org.jetbrains.anko.startActivity
  */
 class SplashActivity : BaseActivity(),SplashContract.SplashView {
 
-    val mPresenter = SplashPresenter(this)
+    private val mPresenter = SplashPresenter(this)
 
     companion object {
         val DELAY_TIME = 2000L
@@ -27,7 +26,6 @@ class SplashActivity : BaseActivity(),SplashContract.SplashView {
 
     override fun setupLayout(): Int = R.layout.activity_splash
 
-
     override fun init() {
         super.init()
         mPresenter.checkLoginStatus()
@@ -36,10 +34,12 @@ class SplashActivity : BaseActivity(),SplashContract.SplashView {
     override fun onNotLoggedIn() {
         mHandler.postDelayed({
             startActivity<LoginActivity>()
+            this.finish()
         }, DELAY_TIME)
     }
 
     override fun onLoggedIn() {
         startActivity<MainActivity>()
+        this.finish()
     }
 }

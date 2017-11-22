@@ -13,10 +13,11 @@ import android.view.ViewGroup
  */
 abstract class BaseFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View?
-       = inflater?.inflate(setupLayout(),container,false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(setupLayout(),container,false)
+    }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         init(view,savedInstanceState)
     }
 

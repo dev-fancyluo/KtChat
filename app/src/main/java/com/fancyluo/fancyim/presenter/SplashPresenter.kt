@@ -1,6 +1,7 @@
 package com.fancyluo.fancyim.presenter
 
 import com.fancyluo.fancyim.contract.SplashContract
+import com.hyphenate.chat.EMClient
 
 /**
  * fancyLuo
@@ -13,6 +14,7 @@ class SplashPresenter(val view:SplashContract.SplashView) : SplashContract.Splas
         if (isLoggedIn()) view.onLoggedIn() else view.onNotLoggedIn()
     }
 
-    private fun isLoggedIn(): Boolean = false
+    private fun isLoggedIn(): Boolean =
+            EMClient.getInstance().isConnected && EMClient.getInstance().isLoggedInBefore
 
 }
