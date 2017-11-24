@@ -29,6 +29,7 @@ class LoginActivity : BaseActivity(), LoginContract.LoginView {
             login()
             true
         }
+        tv_register.setOnClickListener { startActivity<RegisterActivity>() }
     }
 
     private fun login() {
@@ -39,7 +40,7 @@ class LoginActivity : BaseActivity(), LoginContract.LoginView {
             mPresenter.login(username, password)
         } else {
             val permissionArray = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            ActivityCompat.requestPermissions(this,permissionArray,10086)
+            ActivityCompat.requestPermissions(this, permissionArray, 10086)
         }
     }
 
@@ -52,8 +53,8 @@ class LoginActivity : BaseActivity(), LoginContract.LoginView {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults[0] == PERMISSION_GRANTED && requestCode == 10086) {
-             login()
-        } else{
+            login()
+        } else {
             toast("权限授权失败")
         }
     }

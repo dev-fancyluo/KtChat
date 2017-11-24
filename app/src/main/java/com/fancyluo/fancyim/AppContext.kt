@@ -1,6 +1,7 @@
 package com.fancyluo.fancyim
 
 import android.app.Application
+import cn.bmob.v3.Bmob
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMOptions
 
@@ -20,6 +21,11 @@ class AppContext : Application(){
         super.onCreate()
         instance = this
         initHx()
+        initBmob();
+    }
+
+    private fun initBmob() {
+        Bmob.initialize(this, "244e708577f0ac5ba47eee84a92c0d5b");
     }
 
     private fun initHx() {

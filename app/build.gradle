@@ -20,6 +20,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    useLibrary 'org.apache.http.legacy'
+
 }
 
 dependencies {
@@ -37,5 +39,8 @@ dependencies {
     implementation files('libs/hyphenatechat_3.3.6.jar')
     // MaterialDialog
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
-    implementation 'com.android.support:design:27.0.1'
+    implementation 'com.android.support:design:26.1.0'
+    // Bmob
+    compile 'cn.bmob.android:bmob-sdk:3.5.5'
+    compile 'cn.bmob.android:http-legacy:1.0'
 }
