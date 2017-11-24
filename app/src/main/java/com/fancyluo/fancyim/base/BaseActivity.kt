@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.include_toolbar.*
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    private lateinit var mProgressDialog: MaterialDialog
+    private var mProgressDialog: MaterialDialog? = null
 
     private val inputManager by lazy {
         getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -71,7 +71,7 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     fun hideProgressDialog() {
-        mProgressDialog.dismiss()
+        mProgressDialog?.dismiss()
     }
 
     fun hideSoftKeyboard() {

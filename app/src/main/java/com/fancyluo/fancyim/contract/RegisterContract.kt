@@ -17,6 +17,7 @@ class RegisterContract {
         fun registerSuccess()
         fun registerFailed()
         fun confirmPasswordError()
+        fun userAlreadyExist()
     }
 
     interface Presenter : BasePresenter {

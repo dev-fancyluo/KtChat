@@ -16,12 +16,13 @@ import org.jetbrains.anko.uiThread
  * date: 2017/11/24 07:45
  * desc:
  */
-class RegisterPresente(val view: RegisterContract.View) : RegisterContract.Presenter {
+class RegisterPresenter(val view: RegisterContract.View) : RegisterContract.Presenter {
 
     override fun registerUser(username: String, password: String, confirmPassword: String) {
         if (username.isValidUsername()) {
             if (password.isValidPassword()) {
                 if (password == confirmPassword) {
+                    view.registerStart()
                     toRegisterBmob(username, password)
                 } else {
                     view.confirmPasswordError()
@@ -38,15 +39,16 @@ class RegisterPresente(val view: RegisterContract.View) : RegisterContract.Prese
         val user = BmobUser()
         user.username = username
         user.setPassword(password)
-        user.signUp(object : SaveListener<BmobUser>(){
+        user.signUp(object : SaveListener<BmobUser>() {
             override fun done(user: BmobUser?, e: BmobException?) {
                 // BmobException对象为空表示注册成功
-                if (e == null){
+                if (e == null) {
                     // 注册环信
-                    toRegisterEasemob(username,password)
+                    toRegisterEasemob(username, password)
                 } else {
                     e.printStackTrace()
-                    view.registerFailed()
+                    // 用户已存在
+                    if (e.errorCode == 202) view.userAlreadyExist()
                 }
             }
         })
@@ -59,7 +61,7 @@ class RegisterPresente(val view: RegisterContract.View) : RegisterContract.Prese
                 //同步方法
                 EMClient.getInstance().createAccount(username, password)
                 uiThread { view.registerSuccess() }
-            } catch (e : HyphenateException) {
+            } catch (e: HyphenateException) {
                 e.printStackTrace()
                 uiThread { view.registerFailed() }
             }

@@ -21,11 +21,11 @@ class AppContext : Application(){
         super.onCreate()
         instance = this
         initHx()
-        initBmob();
+        initBmob()
     }
 
     private fun initBmob() {
-        Bmob.initialize(this, "244e708577f0ac5ba47eee84a92c0d5b");
+        Bmob.initialize(this, "244e708577f0ac5ba47eee84a92c0d5b")
     }
 
     private fun initHx() {

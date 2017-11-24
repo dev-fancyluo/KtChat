@@ -3,7 +3,7 @@ package com.fancyluo.fancyim.ui
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.contract.RegisterContract
-import com.fancyluo.fancyim.presenter.RegisterPresente
+import com.fancyluo.fancyim.presenter.RegisterPresenter
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.toast
 
@@ -14,7 +14,7 @@ import org.jetbrains.anko.toast
  */
 class RegisterActivity : BaseActivity(), RegisterContract.View {
 
-    private val mPresenter = RegisterPresente(this)
+    private val mPresenter = RegisterPresenter(this)
 
     override fun setupLayout() = R.layout.activity_register
 
@@ -61,6 +61,11 @@ class RegisterActivity : BaseActivity(), RegisterContract.View {
     override fun registerFailed() {
         hideProgressDialog()
         toast("注册失败")
+    }
+
+    override fun userAlreadyExist() {
+        hideProgressDialog()
+        toast(" 用户已存在")
     }
 
 }
