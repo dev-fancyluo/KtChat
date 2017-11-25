@@ -1,4 +1,4 @@
-package com.fancyluo.fancyim.ui
+package com.fancyluo.fancyim.ui.activity
 
 import android.os.Handler
 import com.fancyluo.fancyim.R

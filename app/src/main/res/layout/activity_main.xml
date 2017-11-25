@@ -5,19 +5,65 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fancyluo.fancyim.ui.MainActivity">
+    tools:context="com.fancyluo.fancyim.ui.activity.MainActivity">
 
     <include
         android:id="@+id/top"
         layout="@layout/include_toolbar"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/line_tab"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/top"/>
+
+    <View
+        android:id="@+id/line_tab"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toTopOf="@id/tab_conversation"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/tab_conversation"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:drawableTop="@drawable/tab_conversation_nomal"
+        android:gravity="center"
+        android:text="会话"
+        android:textColor="@color/secondary_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tab_contacts"/>
+
+    <TextView
+        android:id="@+id/tab_contacts"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:drawableTop="@drawable/tab_contacts_nomal"
+        android:gravity="center"
+        android:text="联系人"
+        android:textColor="@color/secondary_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tab_conversation"
+        app:layout_constraintRight_toRightOf="@id/tab_mine"/>
+
+    <TextView
+        android:id="@+id/tab_mine"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:drawableTop="@drawable/tab_mine_nomal"
+        android:gravity="center"
+        android:text="我的"
+        android:textColor="@color/secondary_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/tab_contacts"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

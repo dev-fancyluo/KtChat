@@ -4,7 +4,7 @@ import com.fancyluo.fancyim.contract.LoginContract
 import com.fancyluo.fancyim.extentions.isValidPassword
 import com.fancyluo.fancyim.extentions.isValidUsername
 import com.fancyluo.fancyim.intefaces.EMCallbackAdapter
-import com.fancyluo.fancyim.ui.LoginActivity
+import com.fancyluo.fancyim.ui.activity.LoginActivity
 import com.hyphenate.chat.EMClient
 
 /**

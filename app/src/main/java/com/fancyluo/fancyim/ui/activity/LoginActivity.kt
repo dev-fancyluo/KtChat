@@ -1,4 +1,4 @@
-package com.fancyluo.fancyim.ui
+package com.fancyluo.fancyim.ui.activity
 
 import android.Manifest
 import android.content.pm.PackageManager.PERMISSION_GRANTED

@@ -1,5 +1,7 @@
 package com.fancyluo.fancyim.base
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -13,12 +15,19 @@ import android.view.ViewGroup
  */
 abstract class BaseFragment : Fragment() {
 
+    protected lateinit var mContext: Activity
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        mContext = context as Activity
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(setupLayout(),container,false)
+        return inflater.inflate(setupLayout(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        init(view,savedInstanceState)
+        init(view, savedInstanceState)
     }
 
     open fun init(view: View?, savedInstanceState: Bundle?) {
