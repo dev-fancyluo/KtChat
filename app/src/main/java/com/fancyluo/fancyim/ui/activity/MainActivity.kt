@@ -1,16 +1,9 @@
 package com.fancyluo.fancyim.ui.activity
 
-import android.support.v4.app.FragmentTransaction
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.ui.fragment.TabFragmentFactory
 import kotlinx.android.synthetic.main.activity_main.*
-
-private val MainActivity.fragmentTransaction: FragmentTransaction?
-    get() {
-        val transaction = supportFragmentManager.beginTransaction()
-        return transaction
-    }
 
 class MainActivity : BaseActivity() {
 
