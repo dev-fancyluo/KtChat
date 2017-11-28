@@ -36,6 +36,7 @@
             android:layout_height="50dp"
             android:background="@null"
             android:hint="请输入用户名"
+            android:text="fancyluo"
             android:paddingLeft="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -52,6 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@null"
+            android:text="123456"
             android:hint="请输入密码"
             android:inputType="textPassword"
             android:paddingLeft="5dp"

@@ -9,6 +9,7 @@ import com.fancyluo.fancyim.contract.ContactsContract
 import com.fancyluo.fancyim.intefaces.EMContactListenerAdapter
 import com.fancyluo.fancyim.presenter.ContactsPresenter
 import com.fancyluo.fancyim.ui.adapter.ContactsAdapter
+import com.fancyluo.fancyim.ui.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contacts.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -51,8 +52,25 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
             }
         })
 
+        slideBar.setOnSlideSelectListener(object : SlideBar.OnSlideSelectListener {
+            override fun onSelectLetter(letter: String) {
+                tvCenter.text = letter
+                tvCenter.visibility = View.VISIBLE
+                recyclerView.smoothScrollToPosition(getPosition(letter))
+            }
+
+            override fun onUnSelectLetter() {
+                tvCenter.visibility = View.GONE
+            }
+        })
+
         mPresenter.getContactsList()
 
+    }
+
+    // 使用二分查找计算滚动位置
+    private fun getPosition(letter: String) = mPresenter.contactsInfoList.binarySearch { item ->
+        item.letter.minus(letter[0])
     }
 
     override fun getContactsListSuccess() {
