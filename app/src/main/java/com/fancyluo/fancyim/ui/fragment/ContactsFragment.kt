@@ -56,7 +56,8 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
             override fun onSelectLetter(letter: String) {
                 tvCenter.text = letter
                 tvCenter.visibility = View.VISIBLE
-                recyclerView.smoothScrollToPosition(getPosition(letter))
+                val position = getPosition(letter)
+                recyclerView.smoothScrollToPosition(position)
             }
 
             override fun onUnSelectLetter() {

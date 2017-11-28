@@ -54,7 +54,7 @@ class SlideBar(context: Context?, attrs: AttributeSet? = null) : View(context, a
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        val x = (sectionWight / 2).toFloat()
+        val x = (sectionWight / 2)
         var baseline = textBaseline
         letterArray.forEach {
             canvas.drawText(it, x, baseline, paint)

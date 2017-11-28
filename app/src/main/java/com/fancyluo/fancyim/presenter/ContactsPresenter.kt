@@ -29,7 +29,7 @@ class ContactsPresenter(val view: ContactsContract.View) : ContactsContract.Pres
                     // 第一条 Item 显示头部
                     // 当前 Item 首字母与上一条 Item 首字母不相同时显示头部
                     val showLetter = index == 0 || usernameList[index][0] != usernameList[index - 1][0]
-                    contactsInfoList.add(ContactsInfo(s[0].toLowerCase(), s, showLetter))
+                    contactsInfoList.add(ContactsInfo(s[0].toUpperCase(), s, showLetter))
                 }
                 uiThread { view.getContactsListSuccess() }
             } catch (e: HyphenateException) {
