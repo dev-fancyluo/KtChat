@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.fancyluo.fancyim.R
 import kotlinx.android.synthetic.main.include_toolbar.*
+import org.jetbrains.anko.startActivity
 
 
 /**
@@ -76,6 +77,11 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun hideSoftKeyboard() {
         inputManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
+    }
+
+    inline fun <reified T : BaseActivity> startActivityAndFinish(){
+        startActivity<T>()
+        finish()
     }
 
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import org.jetbrains.anko.startActivity
 
 /**
  * fancyLuo
@@ -35,5 +36,17 @@ abstract class BaseFragment : Fragment() {
     }
 
     abstract fun setupLayout(): Int
+
+    inline fun <reified T : BaseActivity> startActivityAndFinish(){
+        `access$mContext`.startActivity<T>()
+        `access$mContext`.finish()
+    }
+
+    @PublishedApi
+    internal var `access$mContext`: Activity
+        get() = mContext
+        set(value) {
+            mContext = value
+        }
 
 }

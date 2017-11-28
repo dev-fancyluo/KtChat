@@ -9,7 +9,6 @@ import com.fancyluo.fancyim.ui.activity.LoginActivity
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 /**
@@ -37,18 +36,15 @@ class MineFragment : BaseFragment() {
                 override fun onSuccess() {
                     mContext.runOnUiThread {
                         mContext.toast("您已退出登录")
-                        mContext.startActivity<LoginActivity>()
-                        mContext.finish()
+                        startActivityAndFinish<LoginActivity>()
                     }
                 }
-
                 override fun onError(p0: Int, p1: String?) {
                     mContext.runOnUiThread {
                         mContext.toast("退出登录失败，请重新尝试")
                     }
                 }
             })
-
         }
     }
 
