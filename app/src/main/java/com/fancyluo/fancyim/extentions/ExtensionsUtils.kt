@@ -11,3 +11,6 @@ fun String.isValidUsername(): Boolean =
 
 fun String.isValidPassword(): Boolean =
         this.matches(kotlin.text.Regex("^(\\w){6,20}\$"))
+
+fun <K, V> MutableMap<K, V>.toVarargArray(): Array<Pair<K, V>> =
+        map { Pair(it.key, it.value) }.toTypedArray()
