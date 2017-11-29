@@ -1,15 +1,12 @@
 package com.fancyluo.fancyim.ui.activity
 
-import android.app.Activity
 import android.support.v7.widget.LinearLayoutManager
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.bean.SearchContactsInfo
 import com.fancyluo.fancyim.contract.SearchContactsContract
-import com.fancyluo.fancyim.intefaces.EMContactListenerAdapter
 import com.fancyluo.fancyim.presenter.SearchContactsPresenter
 import com.fancyluo.fancyim.ui.adapter.SearchContactsListAdapter
-import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.activity_search_contacts.*
 import org.jetbrains.anko.toast
 
@@ -39,14 +36,6 @@ class SearchContactsActivity : BaseActivity(), SearchContactsContract.View {
             presenter.searchContacts(username)
             true
         }
-
-        EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
-            override fun onFriendRequestAccepted(p0: String?) {
-                setResult(Activity.RESULT_OK)
-                finish()
-            }
-        })
-
     }
 
     override fun searchContactsStart() {

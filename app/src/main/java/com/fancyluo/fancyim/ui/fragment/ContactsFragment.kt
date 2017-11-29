@@ -16,7 +16,7 @@ import com.fancyluo.fancyim.ui.adapter.ContactsAdapter
 import com.fancyluo.fancyim.ui.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contacts.*
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.startActivity
 
 /**
  * fancyLuo
@@ -35,34 +35,19 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
 
     override fun setupMenu() = R.menu.menu_add_contacts
 
-    override fun onMenuClick(item: MenuItem?) = mContext.startActivityForResult<SearchContactsActivity>(10086)
-
+    override fun onMenuClick(item: MenuItem?) = mContext.startActivity<SearchContactsActivity>()
 
     override fun init(view: View?, savedInstanceState: Bundle?) {
         super.init(view, savedInstanceState)
-
         // apply: 调用某对象的 apply 函数，在函数范围内，可以调用该对象的任意方法，并返回该对象
+        setupSwipeLayout()
+        setupRecyclerView()
+        setupContactsListener()
+        setupSlideBar()
+        mPresenter.getContactsList()
+    }
 
-        swipeLayout.apply {
-            setColorSchemeResources(R.color.primary_dark)
-            isRefreshing = true
-            setOnRefreshListener {
-                mPresenter.getContactsList()
-            }
-        }
-
-        recyclerView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(mContext)
-            adapter = ContactsAdapter(context, mPresenter.contactsInfoList)
-        }
-
-        EMClient.getInstance().contactManager().setContactListener(object : EMContactListenerAdapter() {
-            override fun onContactDeleted(p0: String?) {
-                mPresenter.getContactsList()
-            }
-        })
-
+    private fun setupSlideBar() {
         slideBar.setOnSlideSelectListener(object : SlideBar.OnSlideSelectListener {
             override fun onSelectLetter(letter: String) {
                 tvCenter.text = letter
@@ -75,9 +60,38 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
                 tvCenter.visibility = View.GONE
             }
         })
+    }
 
-        mPresenter.getContactsList()
+    val contactListener = object : EMContactListenerAdapter(){
+        override fun onContactDeleted(p0: String?) {
+            mPresenter.getContactsList()
+        }
 
+        override fun onContactAdded(p0: String?) {
+            mPresenter.getContactsList()
+        }
+    }
+
+    private fun setupContactsListener() {
+        EMClient.getInstance().contactManager().setContactListener(contactListener)
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(mContext)
+            adapter = ContactsAdapter(context, mPresenter.contactsInfoList)
+        }
+    }
+
+    private fun setupSwipeLayout() {
+        swipeLayout.apply {
+            setColorSchemeResources(R.color.primary_dark)
+            isRefreshing = true
+            setOnRefreshListener {
+                mPresenter.getContactsList()
+            }
+        }
     }
 
     // 使用二分查找计算滚动位置
@@ -101,6 +115,11 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
         if (requestCode == 10086 && resultCode == Activity.RESULT_OK){
             mPresenter.getContactsList()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EMClient.getInstance().contactManager().removeContactListener(contactListener)
     }
 
 

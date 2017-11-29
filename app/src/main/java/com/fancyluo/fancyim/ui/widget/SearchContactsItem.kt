@@ -49,10 +49,10 @@ class SearchContactsItem(context: Context?, attrs: AttributeSet? = null) : Relat
                 //参数为要添加的好友的username和添加理由
                 EMClient.getInstance().contactManager().addContact(username,
                         EMClient.getInstance().currentUser+ "申请添加您为好友")
-                uiThread { context.toast("添加好友成功") }
+                uiThread { context.toast("发送好友请求成功") }
             } catch (e : HyphenateException){
                 e.printStackTrace()
-                uiThread { context.toast("添加好友失败") }
+                uiThread { context.toast("发送好友请求失败") }
             }
         }
     }
