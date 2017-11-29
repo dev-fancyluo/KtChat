@@ -4,9 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/KK-IM.iml" filepath="$PROJECT_DIR$/KK-IM.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://K:\Kotlin-Study\KK-IM\app\app.iml" filepath="K:\Kotlin-Study\KK-IM\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/fancy-im.iml" filepath="$PROJECT_DIR$/fancy-im.iml" />
-      <module fileurl="file://K:\Kotlin-Study\KK-IM\fancy-im.iml" filepath="K:\Kotlin-Study\KK-IM\fancy-im.iml" />
     </modules>
   </component>
 </project>

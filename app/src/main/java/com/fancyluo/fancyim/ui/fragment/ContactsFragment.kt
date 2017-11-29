@@ -1,5 +1,7 @@
 package com.fancyluo.fancyim.ui.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
@@ -14,7 +16,7 @@ import com.fancyluo.fancyim.ui.adapter.ContactsAdapter
 import com.fancyluo.fancyim.ui.widget.SlideBar
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_contacts.*
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 
 /**
  * fancyLuo
@@ -33,7 +35,7 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
 
     override fun setupMenu() = R.menu.menu_add_contacts
 
-    override fun onMenuClick(item: MenuItem?) = mContext.startActivity<SearchContactsActivity>()
+    override fun onMenuClick(item: MenuItem?) = mContext.startActivityForResult<SearchContactsActivity>(10086)
 
 
     override fun init(view: View?, savedInstanceState: Bundle?) {
@@ -85,13 +87,20 @@ class ContactsFragment : BaseFragment(), ContactsContract.View {
 
     override fun getContactsListSuccess() {
         swipeLayout?.isRefreshing = false
-        tvFailed.visibility = View.GONE
+        tvFailed?.visibility = View.GONE
         recyclerView.adapter.notifyDataSetChanged()
     }
 
     override fun getContactsListFailed() {
         swipeLayout?.isRefreshing = false
-        tvFailed.visibility = View.VISIBLE
+        tvFailed?.visibility = View.VISIBLE
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 10086 && resultCode == Activity.RESULT_OK){
+            mPresenter.getContactsList()
+        }
     }
 
 

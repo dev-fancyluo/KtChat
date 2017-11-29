@@ -48,6 +48,7 @@
             tools:text="2017-8-8"/>
 
         <Button
+            android:id="@+id/btn_add"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_marginRight="16dp"

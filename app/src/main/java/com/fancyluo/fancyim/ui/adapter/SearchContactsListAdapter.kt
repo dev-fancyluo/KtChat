@@ -28,7 +28,6 @@ class SearchContactsListAdapter(
         return MyViewHolder(SearchContactsItem(context))
     }
 
-
     class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView)
 
 }

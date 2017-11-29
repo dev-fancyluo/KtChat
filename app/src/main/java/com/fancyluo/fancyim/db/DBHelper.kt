@@ -10,10 +10,11 @@ import org.jetbrains.anko.db.select
  * date: 2017/11/29 08:25
  * desc:
  */
-class DBHelper {
+class DBHelper private constructor(){
 
     companion object {
         val db = MyOpenHelper()
+        val instance = DBHelper()
     }
 
     fun insertContacts(contacts: Contacts) {
