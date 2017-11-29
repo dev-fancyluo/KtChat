@@ -7,10 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.fancyluo.fancyim.ui.activity.MainActivity">
 
-    <include
-        android:id="@+id/top"
-        layout="@layout/include_toolbar"/>
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="0dp"
@@ -18,7 +14,7 @@
         app:layout_constraintBottom_toTopOf="@id/line_tab"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/line_tab"

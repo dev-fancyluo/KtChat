@@ -8,7 +8,6 @@ import com.fancyluo.fancyim.intefaces.EMCallbackAdapter
 import com.fancyluo.fancyim.ui.activity.LoginActivity
 import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import org.jetbrains.anko.toast
 
 /**
@@ -20,10 +19,12 @@ class MineFragment : BaseFragment() {
 
     override fun setupLayout() = R.layout.fragment_mine
 
+    override fun setupTitle(): String? = "我的"
+
+    override fun showBack() = false
+
     override fun init(view: View?, savedInstanceState: Bundle?) {
         super.init(view, savedInstanceState)
-        mContext.toolbar.title = "我的"
-
         // 设置用户
         tv_name.text = EMClient.getInstance().currentUser
 

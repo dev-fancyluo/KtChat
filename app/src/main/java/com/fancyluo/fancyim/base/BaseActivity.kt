@@ -65,7 +65,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    fun showProgressDialog(content: String) {
+    fun showProgressDialog(content: String = "正在加载中...") {
         mProgressDialog = MaterialDialog.Builder(this)
                 .progress(true, 0)
                 .content(content).show()

@@ -15,8 +15,6 @@ class MainActivity : BaseActivity() {
 
     override fun setupLayout(): Int = R.layout.activity_main
 
-    override fun setupTitle(): String? = "KK-IM"
-
     override fun showBack(): Boolean = false
 
     override fun init() {

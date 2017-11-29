@@ -11,7 +11,7 @@ import com.fancyluo.fancyim.bean.ContactsInfo
 import com.fancyluo.fancyim.intefaces.EMCallbackAdapter
 import com.fancyluo.fancyim.ui.activity.ChatActivity
 import com.hyphenate.chat.EMClient
-import kotlinx.android.synthetic.main.widget_contacts_list_item.view.*
+import kotlinx.android.synthetic.main.widget_contacts_item.view.*
 import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -24,7 +24,7 @@ import org.jetbrains.anko.toast
 class ContactsListItem(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
 
     init {
-        View.inflate(context, R.layout.widget_contacts_list_item, this)
+        View.inflate(context, R.layout.widget_contacts_item, this)
     }
 
     fun bindView(contactsInfo: ContactsInfo) {
