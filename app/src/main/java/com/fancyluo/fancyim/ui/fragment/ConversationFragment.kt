@@ -9,7 +9,13 @@ import com.fancyluo.fancyim.base.BaseFragment
  * desc: 会话
  */
 class ConversationFragment : BaseFragment() {
-    override fun setupLayout(): Int {
-        return R.layout.fragment_conversation
-    }
+
+    override fun setupLayout() = R.layout.fragment_conversation
+
+    override fun setupTitle() = "KK-IM"
+
+    override fun showBack() = false
+
+
+
 }

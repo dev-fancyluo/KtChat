@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
         // 初始化第一个 Fragment
         tab_conversation.setCompoundDrawablesWithIntrinsicBounds(
                 0, R.drawable.tab_conversation_press, 0, 0)
-        tab_conversation.setTextColor(resources.getColor(R.color.colorPrimaryDark))
+        tab_conversation.setTextColor(resources.getColor(R.color.colorPrimary))
         conversationFragment = ConversationFragment()
         supportFragmentManager.beginTransaction().add(R.id.container, conversationFragment).commit()
 
@@ -51,13 +51,13 @@ class MainActivity : BaseActivity() {
             R.id.tab_conversation -> {
                 tab_conversation.setCompoundDrawablesWithIntrinsicBounds(
                         0, R.drawable.tab_conversation_press, 0, 0)
-                tab_conversation.setTextColor(resources.getColor(R.color.colorPrimaryDark))
+                tab_conversation.setTextColor(resources.getColor(R.color.colorPrimary))
                 ft.show(conversationFragment)
             }
             R.id.tab_contacts -> {
                 tab_contacts.setCompoundDrawablesWithIntrinsicBounds(
                         0, R.drawable.tab_contacts_press, 0, 0)
-                tab_contacts.setTextColor(resources.getColor(R.color.colorPrimaryDark))
+                tab_contacts.setTextColor(resources.getColor(R.color.colorPrimary))
                 if (contactFragment == null) {
                     contactFragment = ContactsFragment()
                     ft.add(R.id.container, contactFragment)
@@ -66,7 +66,7 @@ class MainActivity : BaseActivity() {
             R.id.tab_mine -> {
                 tab_mine.setCompoundDrawablesWithIntrinsicBounds(
                         0, R.drawable.tab_mine_press, 0, 0)
-                tab_mine.setTextColor(resources.getColor(R.color.colorPrimaryDark))
+                tab_mine.setTextColor(resources.getColor(R.color.colorPrimary))
                 if (mineFragment == null) {
                     mineFragment = MineFragment()
                     ft.add(R.id.container, mineFragment)

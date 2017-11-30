@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    app:cardCornerRadius="5dp"
-    android:layout_marginBottom="12dp"
-    android:layout_height="wrap_content">
+    app:cardCornerRadius="5dp">
 
 
     <android.support.constraint.ConstraintLayout
@@ -17,12 +17,12 @@
 
         <ImageView
             android:id="@+id/imgAvatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/ic_launcher_round"
+            android:src="@drawable/ic_avatar_default"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -50,9 +50,10 @@
         <Button
             android:id="@+id/btn_add"
             android:layout_width="60dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_marginRight="16dp"
-            android:background="@color/colorPrimary"
+            android:foreground="?attr/selectableItemBackground"
+            android:background="@drawable/bg_btn_common"
             android:text="添加"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
