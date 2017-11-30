@@ -32,7 +32,7 @@ class ChatMsgAdapter(val context: Context, val msgList: MutableList<EMMessage>) 
                 imSendMsgItem.bindView(msgList[position], if (position == 0) null else msgList[position - 1])
             }
             is ReceiverMsgViewHolder -> {
-                val imReceiverMsgItem = holder?.itemView as IMReceiverMsgItem
+                val imReceiverMsgItem = holder.itemView as IMReceiverMsgItem
                 imReceiverMsgItem.bindView(msgList[position], if (position == 0) null else msgList[position - 1])
             }
         }

@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@id/textTimestamp"/>
 
     <TextView
-        android:id="@+id/receiveMessage"
+        android:id="@+id/textSendMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_receiver_msg_normal"

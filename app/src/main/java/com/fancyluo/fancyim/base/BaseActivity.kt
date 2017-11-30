@@ -18,6 +18,8 @@ import org.jetbrains.anko.startActivity
  */
 abstract class BaseActivity : AppCompatActivity() {
 
+    lateinit var context: Context
+
     private var mProgressDialog: MaterialDialog? = null
 
     private val inputManager by lazy {
@@ -26,6 +28,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        context = this
         setContentView(setupLayout())
         initToolbar()
         init()
@@ -38,7 +41,7 @@ abstract class BaseActivity : AppCompatActivity() {
             toolbar.setNavigationIcon(R.drawable.btn_return)
             toolbar.setNavigationOnClickListener { finish() }
         }
-        if (setupMenu() != 0){
+        if (setupMenu() != 0) {
             toolbar.inflateMenu(setupMenu())
             toolbar.setOnMenuItemClickListener { it ->
                 onMenuClick(it)
@@ -47,7 +50,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    open fun onMenuClick(item: MenuItem?){}
+    open fun onMenuClick(item: MenuItem?) {}
 
     open fun setupMenu(): Int = 0
 
@@ -79,7 +82,7 @@ abstract class BaseActivity : AppCompatActivity() {
         inputManager.hideSoftInputFromWindow(currentFocus.windowToken, 0)
     }
 
-    inline fun <reified T : BaseActivity> startActivityAndFinish(){
+    inline fun <reified T : BaseActivity> startActivityAndFinish() {
         startActivity<T>()
         finish()
     }

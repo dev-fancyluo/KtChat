@@ -4,10 +4,14 @@ import android.support.v7.widget.LinearLayoutManager
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.contract.ChatContract
+import com.fancyluo.fancyim.intefaces.EMMessageListenerAdapter
 import com.fancyluo.fancyim.presenter.ChatPresenter
 import com.fancyluo.fancyim.ui.adapter.ChatMsgAdapter
+import com.hyphenate.chat.EMClient
+import com.hyphenate.chat.EMMessage
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import org.jetbrains.anko.runOnUiThread
 import org.jetbrains.anko.toast
 
 /**
@@ -30,6 +34,7 @@ class ChatActivity : BaseActivity(), ChatContract.View {
         initTitle()
         initEditText()
         initRecyclerView()
+        initChatListener()
     }
 
     private fun initRecyclerView() {
@@ -68,6 +73,27 @@ class ChatActivity : BaseActivity(), ChatContract.View {
 
     override fun onSendMsgFailed() {
         recyclerView.adapter.notifyDataSetChanged()
+    }
+
+    private fun initChatListener() {
+        EMClient.getInstance().chatManager().addMessageListener(msgListener)
+    }
+
+    private val msgListener = object : EMMessageListenerAdapter() {
+
+        override fun onMessageReceived(p0: MutableList<EMMessage>?) {
+            // 收到消息
+            p0?.forEach {
+                presenter.msgList.add(it)
+            }
+            context.runOnUiThread { recyclerView.adapter.notifyDataSetChanged() }
+
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EMClient.getInstance().chatManager().removeMessageListener(msgListener)
     }
 
 }
