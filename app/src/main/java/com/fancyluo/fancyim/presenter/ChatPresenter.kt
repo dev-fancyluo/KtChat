@@ -21,7 +21,7 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
 
         emMessage.setMessageStatusCallback(object : EMCallbackAdapter() {
             override fun onSuccess() {
-                uiThread { view.onSendMsgFailed() }
+                uiThread { view.onSendMsgSuccess() }
             }
 
             override fun onError(p0: Int, p1: String?) {

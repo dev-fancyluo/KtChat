@@ -1,9 +1,11 @@
 package com.fancyluo.fancyim.ui.activity
 
+import android.support.v7.widget.LinearLayoutManager
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.contract.ChatContract
 import com.fancyluo.fancyim.presenter.ChatPresenter
+import com.fancyluo.fancyim.ui.adapter.ChatMsgAdapter
 import kotlinx.android.synthetic.main.activity_chat.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.jetbrains.anko.toast
@@ -13,7 +15,7 @@ import org.jetbrains.anko.toast
  * date: 2017/11/26 11:49
  * desc:
  */
-class ChatActivity : BaseActivity(),ChatContract.View {
+class ChatActivity : BaseActivity(), ChatContract.View {
 
     var title = ""
 
@@ -27,6 +29,15 @@ class ChatActivity : BaseActivity(),ChatContract.View {
         super.init()
         initTitle()
         initEditText()
+        initRecyclerView()
+    }
+
+    private fun initRecyclerView() {
+        recyclerView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = ChatMsgAdapter(context, presenter.msgList)
+        }
     }
 
     private fun initTitle() {
@@ -35,7 +46,7 @@ class ChatActivity : BaseActivity(),ChatContract.View {
     }
 
     private fun initEditText() {
-        editMsg.setOnEditorActionListener { _ , _, _ ->
+        editMsg.setOnEditorActionListener { _, _, _ ->
             sendMsg()
             true
         }
@@ -43,7 +54,7 @@ class ChatActivity : BaseActivity(),ChatContract.View {
 
     private fun sendMsg() {
         val msg = editMsg.text.trim().toString()
-        if (msg.isEmpty()) toast("消息不可为空") else presenter.sendMsg(title,msg)
+        if (msg.isEmpty()) toast("消息不可为空") else presenter.sendMsg(title, msg)
     }
 
     override fun onSendMsgStart() {
