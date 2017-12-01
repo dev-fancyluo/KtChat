@@ -4,6 +4,7 @@ import com.fancyluo.fancyim.contract.ChatContract
 import com.fancyluo.fancyim.intefaces.EMCallbackAdapter
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
+import org.jetbrains.anko.doAsync
 
 /**
  * fancyLuo
@@ -11,6 +12,10 @@ import com.hyphenate.chat.EMMessage
  * desc:
  */
 class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
+
+    companion object {
+        val PAGE_SIZE = 10
+    }
 
     var msgList = mutableListOf<EMMessage>()
 
@@ -32,5 +37,29 @@ class ChatPresenter(val view: ChatContract.View) : ChatContract.Presenter {
         EMClient.getInstance().chatManager().sendMessage(emMessage)
     }
 
+    override fun addReceiverMsg(title: String, msgList: MutableList<EMMessage>?) {
+        // 添加消息到列表
+        msgList?.let { this.msgList.addAll(it) }
+        // 标为已读
+        EMClient.getInstance().chatManager().getConversation(title).markAllMessagesAsRead()
+    }
+
+    override fun loadInitMsg(title: String) {
+        doAsync {
+            val conversation = EMClient.getInstance().chatManager().getConversation(title)
+            val initMsgList = conversation.allMessages
+            msgList.addAll(initMsgList)
+            uiThread { view.onLoadInitMsgSuccess() }
+        }
+    }
+
+    override fun loadMoreInitMsg(title: String) {
+        doAsync {
+            val conversation = EMClient.getInstance().chatManager().getConversation(title)
+            val initMsgList = conversation.loadMoreMsgFromDB(msgList[0].msgId, PAGE_SIZE)
+            msgList.addAll(0, initMsgList)
+            uiThread { view.onLoadMoreInitMsgSuccess(initMsgList.size) }
+        }
+    }
 
 }

@@ -22,21 +22,15 @@ class IMSendMsgItem(context: Context?, attrs: AttributeSet? = null) : RelativeLa
         View.inflate(context, R.layout.im_send_msg_item, this)
     }
 
-    fun bindView(emMessage: EMMessage, previousMsg: EMMessage?) {
+    fun bindView(emMessage: EMMessage, isShowTimestamp: Boolean) {
         // 设置时间戳
-        if (previousMsg != null) {
-            if (previousMsg.msgTime - emMessage.msgTime < (1000 * 60 * 5)) {
-                textTimestamp.visibility = View.GONE
-            } else {
-                textTimestamp.visibility = View.VISIBLE
-                textTimestamp.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
-            }
-        } else{
+        if (isShowTimestamp){
+            textTimestamp.visibility = View.VISIBLE
             textTimestamp.text = DateUtils.getTimestampString(Date(emMessage.msgTime))
         }
+        else textTimestamp.visibility = View.GONE
         // 设置消息
-        val body = emMessage.body as EMTextMessageBody
-        textSendMsg.text = body.message
+        textSendMsg.text = (emMessage.body as EMTextMessageBody).message
         //设置状态
         emMessage.status().let {
             when (it) {

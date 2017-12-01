@@ -1,6 +1,8 @@
 package com.fancyluo.fancyim.ui.activity
 
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.contract.ChatContract
@@ -32,9 +34,14 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun init() {
         super.init()
         initTitle()
+        initMsg()
         initEditText()
         initRecyclerView()
         initChatListener()
+    }
+
+    private fun initMsg() {
+        presenter.loadInitMsg(title)
     }
 
     private fun initRecyclerView() {
@@ -42,6 +49,17 @@ class ChatActivity : BaseActivity(), ChatContract.View {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = ChatMsgAdapter(context, presenter.msgList)
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (newState == SCROLL_STATE_IDLE){
+                        val position = (layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                        if (position == 0) {
+                            presenter.loadMoreInitMsg(title)
+                        }
+                    }
+                }
+            })
         }
     }
 
@@ -69,10 +87,25 @@ class ChatActivity : BaseActivity(), ChatContract.View {
     override fun onSendMsgSuccess() {
         editMsg.text.clear()
         recyclerView.adapter.notifyDataSetChanged()
+        scrollToBottom()
+    }
+
+    private fun scrollToBottom() {
+        recyclerView.scrollToPosition(presenter.msgList.size - 1)
     }
 
     override fun onSendMsgFailed() {
         recyclerView.adapter.notifyDataSetChanged()
+    }
+
+    override fun onLoadInitMsgSuccess() {
+        recyclerView.adapter.notifyDataSetChanged()
+        scrollToBottom()
+    }
+
+    override fun onLoadMoreInitMsgSuccess(size: Int) {
+        recyclerView.adapter.notifyDataSetChanged()
+        recyclerView.scrollToPosition(size)
     }
 
     private fun initChatListener() {
@@ -81,12 +114,12 @@ class ChatActivity : BaseActivity(), ChatContract.View {
 
     private val msgListener = object : EMMessageListenerAdapter() {
 
-        override fun onMessageReceived(p0: MutableList<EMMessage>?) {
-            // 收到消息
-            p0?.forEach {
-                presenter.msgList.add(it)
+        override fun onMessageReceived(msgList: MutableList<EMMessage>?) {
+            presenter.addReceiverMsg(title, msgList)
+            context.runOnUiThread {
+                recyclerView.adapter.notifyDataSetChanged()
+                scrollToBottom()
             }
-            context.runOnUiThread { recyclerView.adapter.notifyDataSetChanged() }
 
         }
     }
