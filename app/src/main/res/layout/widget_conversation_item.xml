@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:foreground="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_avatar_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="小李飞刀"
+        android:textColor="@color/primary_text"
+        android:textSize="16dp"
+        app:layout_constraintLeft_toRightOf="@id/imgAvatar"
+        app:layout_constraintTop_toTopOf="@id/imgAvatar"/>
+
+    <TextView
+        android:id="@+id/textLastMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:text="小李飞刀"
+        app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
+        app:layout_constraintLeft_toRightOf="@id/imgAvatar"/>
+
+
+    <TextView
+        android:id="@+id/textTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:text="2017"
+        app:layout_constraintBottom_toBottomOf="@id/textUserName"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textUserName"/>
+
+    <TextView
+        android:id="@+id/textMsgCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_red_circle"
+        android:gravity="center"
+        android:text="99"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/textLastMsg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textLastMsg"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.2dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>
