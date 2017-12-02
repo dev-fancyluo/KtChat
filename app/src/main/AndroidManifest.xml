@@ -44,7 +44,9 @@
             android:name=".ui.activity.LoginActivity"
             android:theme="@style/AppTheme.FullScreen"/>
         <activity android:name=".ui.activity.RegisterActivity"/>
-        <activity android:name=".ui.activity.ChatActivity"/>
+        <activity
+            android:name=".ui.activity.ChatActivity"
+            android:parentActivityName=".ui.activity.MainActivity"/>
         <activity android:name=".ui.activity.SearchContactsActivity"/>
 
 
