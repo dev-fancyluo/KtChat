@@ -1,11 +1,16 @@
 package com.fancyluo.fancyim.ui.activity
 
+import android.content.Intent
+import com.afollestad.materialdialogs.MaterialDialog
 import com.fancyluo.fancyim.R
 import com.fancyluo.fancyim.base.BaseActivity
 import com.fancyluo.fancyim.ui.fragment.ContactsFragment
 import com.fancyluo.fancyim.ui.fragment.ConversationFragment
 import com.fancyluo.fancyim.ui.fragment.MineFragment
+import com.hyphenate.EMError
+import com.hyphenate.chat.EMClient
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity() {
 
@@ -94,6 +99,31 @@ class MainActivity : BaseActivity() {
         tab_mine.setCompoundDrawablesWithIntrinsicBounds(
                 0, R.drawable.tab_mine_nomal, 0, 0)
         tab_mine.setTextColor(resources.getColor(R.color.secondary_text))
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        showErrorHintDialog(intent?.getIntExtra("error", -1))
+    }
+
+    private fun showErrorHintDialog(hxConnError: Int?) {
+        if (hxConnError == null) return
+        val hint = when (hxConnError) {
+            EMError.USER_REMOVED -> "您的账号已被删除"
+            EMError.USER_LOGIN_ANOTHER_DEVICE -> "您的账号已在其他设备登陆"
+            else -> ""
+        }
+        MaterialDialog.Builder(this)
+                .content(hint)
+                .canceledOnTouchOutside(false)
+                .positiveText("确定")
+                .onPositive { dialog, _ ->
+                    dialog.dismiss()
+                    this.finish()
+                    EMClient.getInstance().logout(true)
+                    startActivity<LoginActivity>()
+                }
+                .show()
     }
 
 

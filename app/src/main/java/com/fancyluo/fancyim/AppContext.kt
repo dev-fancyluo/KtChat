@@ -10,10 +10,14 @@ import android.support.v4.app.TaskStackBuilder
 import cn.bmob.v3.Bmob
 import com.fancyluo.fancyim.intefaces.EMMessageListenerAdapter
 import com.fancyluo.fancyim.ui.activity.ChatActivity
+import com.fancyluo.fancyim.ui.activity.MainActivity
+import com.hyphenate.EMConnectionListener
+import com.hyphenate.EMError
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMMessage
 import com.hyphenate.chat.EMOptions
 import com.hyphenate.chat.EMTextMessageBody
+import org.jetbrains.anko.runOnUiThread
 
 /**
  * fancyLuo
@@ -36,7 +40,6 @@ class AppContext : Application() {
         instance = this
         initHx()
         initBmob()
-        initMsgListener()
     }
 
     private fun initBmob() {
@@ -48,6 +51,32 @@ class AppContext : Application() {
         EMClient.getInstance().init(applicationContext, EMOptions())
         //在做打包混淆时，关闭debug模式，避免消耗不必要的资源
         EMClient.getInstance().setDebugMode(BuildConfig.DEBUG)
+
+        initMsgListener()
+        initConnectionListener()
+    }
+
+    private fun initConnectionListener() {
+        EMClient.getInstance().addConnectionListener(object : EMConnectionListener {
+            override fun onConnected() {}
+
+            override fun onDisconnected(error: Int) {
+                runOnUiThread {
+                    when (error) {
+                        EMError.USER_REMOVED -> toMainActivity(error)
+                        EMError.USER_LOGIN_ANOTHER_DEVICE -> toMainActivity(error)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun toMainActivity(error: Int) {
+        // 账号在其他设备登陆
+        val intent = Intent(instance, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.putExtra("error", error)
+        startActivity(intent)
     }
 
     private fun initMsgListener() {
@@ -83,7 +112,7 @@ class AppContext : Application() {
                     .setContentText((it.body as EMTextMessageBody).message)
                     .setContentIntent(pendingIntent)
                     .setAutoCancel(true)
-                    .setLargeIcon(BitmapFactory.decodeResource(resources,R.drawable.ic_avatar_default))
+                    .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_avatar_default))
                     .notification
 
             notificationManager.notify(1, notification)
